@@ -32,7 +32,12 @@ class PhoneNumberToArrayTransformer implements DataTransformerInterface
      * @var int
      */
     private $format;
-
+    
+    /**
+     * @var string
+     */
+    private $defaultRegion;
+    
     /**
      * Constructor.
      *
@@ -41,11 +46,13 @@ class PhoneNumberToArrayTransformer implements DataTransformerInterface
      */
     public function __construct(
         array $countryChoices,
-        $format = PhoneNumberFormat::NATIONAL
+        $format = PhoneNumberFormat::NATIONAL,
+        $defaultRegion = PhoneNumberUtil::UNKNOWN_REGION
     )
     {
         $this->countryChoices = $countryChoices;
         $this->format = $format;
+        $this->defaultRegion = $defaultRegion;
     }
 
     /**
@@ -54,7 +61,7 @@ class PhoneNumberToArrayTransformer implements DataTransformerInterface
     public function transform($phoneNumber)
     {
         if (null === $phoneNumber) {
-            return array('country' => '', 'number' => '');
+            return array('country' => $this->defaultRegion, 'number' => '');
         } elseif (false === $phoneNumber instanceof PhoneNumber) {
             throw new TransformationFailedException('Expected a \libphonenumber\PhoneNumber.');
         }

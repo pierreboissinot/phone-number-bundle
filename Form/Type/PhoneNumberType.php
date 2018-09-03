@@ -96,10 +96,7 @@ class PhoneNumberType extends AbstractType
             $countryOptions['required'] = true;
             $countryOptions['choices'] = $countryChoices;
             $countryOptions['preferred_choices'] = $options['preferred_country_choices'];
-            if(PhoneNumberUtil::UNKNOWN_REGION !== $options['default_region'] && null !== $options['default_region']) {
-                $countryOptions['data'] = $options['default_region'];
-            }
-
+            
             if ($options['country_placeholder']) {
                 $countryOptions['placeholder'] = $options['country_placeholder'];
             }
@@ -123,7 +120,7 @@ class PhoneNumberType extends AbstractType
         $view->vars['type'] = 'tel';
         $view->vars['widget'] = $options['widget'];
     }
-
+    
     /**
      * {@inheritdoc}
      *
@@ -134,7 +131,7 @@ class PhoneNumberType extends AbstractType
     {
         $this->configureOptions($resolver);
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -160,7 +157,7 @@ class PhoneNumberType extends AbstractType
                 'preferred_country_choices' => array(),
             )
         );
-
+        
         if (method_exists($resolver, 'setDefault')) {
             $resolver->setAllowedValues(
                 'widget',
@@ -181,7 +178,7 @@ class PhoneNumberType extends AbstractType
             );
         }
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -189,7 +186,7 @@ class PhoneNumberType extends AbstractType
     {
         return $this->getBlockPrefix();
     }
-
+    
     /**
      * {@inheritdoc}
      */
